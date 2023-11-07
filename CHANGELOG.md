@@ -4,6 +4,76 @@ that can be found in the LICENSE file. -->
 
 # Changelog
 
+See the [Migration Guide](guides/migration_guide.md) for the details of breaking changes between versions.
+
+## 4.1.0
+
+### New features
+
+- Automatically determine the capture orientation and lock accordingly.
+
+### Fixes
+
+- Handle exceptions after all flows.
+- Fix various of problems with the capture button.
+
+## 4.0.3
+
+### Fixes
+
+- Prevent duplicate shooting actions.
+
+### Improvements
+
+- Provide overall invalid wrapping for controller methods.
+- Throw exceptions with more accurate stack traces.
+
+## 4.0.2
+
+### Fixes
+
+- Handles exceptions if locking methods are failed.
+
+## 4.0.1
+
+### Fixes
+
+- Fix uncaught exceptions for controller methods.
+
+## 4.0.0
+
+To know more about breaking changes, see [Migration Guide][].
+
+### New features
+
+- Migrate to Flutter 3.3, and drop supports for previous Flutter versions.
+- Sync all UI details from WeChat 8.3.x. (#181)
+
+### Improvements
+
+- Adapt layouts according to the device orientation.
+- Improve the performance when taking photos.
+- Improve the experience when using the exposure slider.
+- Prefer `FlashMode.off` for better performance.
+- Allow `cameras` to be set repeatedly.
+
+### Fixes
+
+- Fix accessibility on the switch cameras button.
+
+## 3.8.0
+
+### New features
+
+- Add Vietnamese language text delegate. (#166).
+- Add `CameraPickerConfig.minimumRecordingDuration`. (#168)
+
+### Improvements
+
+- Hide the loading widget in the preview until an actual saving process has been invoked.
+- Remove the implied system UI overlay manipulations.
+- Raise the lowest SDK constraint to 2.8.0.
+
 ## 3.7.0
 
 ### New features
@@ -311,3 +381,5 @@ that can be found in the LICENSE file. -->
 
 - Support taking pictures and videos.
 - Support video recording duration limitation.
+
+[Migration Guide]: guides/migration_guide.md

@@ -27,19 +27,21 @@ class CameraPickerConfig {
     this.shouldDeletePreviewFile = false,
     this.shouldAutoPreviewVideo = false,
     this.maximumRecordingDuration = const Duration(seconds: 15),
+    this.minimumRecordingDuration = const Duration(seconds: 1),
     this.theme,
     this.textDelegate,
     this.cameraQuarterTurns = 0,
     this.resolutionPreset = ResolutionPreset.max,
     this.imageFormatGroup = ImageFormatGroup.unknown,
     this.preferredLensDirection = CameraLensDirection.back,
-    this.preferredFlashMode = FlashMode.auto,
+    this.preferredFlashMode = FlashMode.off,
     this.lockCaptureOrientation,
     this.foregroundBuilder,
     this.previewTransformBuilder,
     this.onEntitySaving,
     this.onError,
     this.onXFileCaptured,
+    this.onMinimumRecordDurationNotMet,
   }) : assert(
           enableRecording == true || onlyEnableRecording != true,
           'Recording mode error.',
@@ -49,8 +51,8 @@ class CameraPickerConfig {
   /// 选择器是否可以录像
   final bool enableRecording;
 
-  /// Whether the picker can record video.
-  /// 选择器是否可以录像
+  /// Whether the picker can record video only.
+  /// 选择器是否只可以录像
   final bool onlyEnableRecording;
 
   /// Whether allow the record can start with single tap.
@@ -103,6 +105,13 @@ class CameraPickerConfig {
   /// 默认为 15 秒，可以使用 `null` 来设置无限制的视频录制
   final Duration? maximumRecordingDuration;
 
+  /// The minimum duration of the video recording process.
+  /// 录制视频最短时长。
+  ///
+  /// Defaults to and cannot be lower than 1 second.
+  /// 默认且不能少于 1 秒。
+  final Duration minimumRecordingDuration;
+
   /// Theme data for the picker.
   /// 选择器的主题
   final ThemeData? theme;
@@ -152,4 +161,8 @@ class CameraPickerConfig {
 
   /// {@macro wechat_camera_picker.XFileCapturedCallback}
   final XFileCapturedCallback? onXFileCaptured;
+
+  /// The callback when the recording is not met the minimum recording duration.
+  /// 录制时长未达到最小时长时的回调方法。
+  final VoidCallback? onMinimumRecordDurationNotMet;
 }

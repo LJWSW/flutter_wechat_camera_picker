@@ -7,13 +7,14 @@ import 'package:flutter/semantics.dart';
 import 'package:flutter/services.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
+import '../extensions/l10n_extensions.dart';
 import '../main.dart';
 import '../models/picker_method.dart';
 import '../widgets/method_list_view.dart';
 import '../widgets/selected_assets_view.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _MyHomePageState();
@@ -56,15 +57,17 @@ class _MyHomePageState extends State<HomePage> {
               Semantics(
                 sortKey: const OrdinalSortKey(0),
                 child: Text(
-                  'WeChat Camera Picker',
-                  style: Theme.of(context).textTheme.headline6,
+                  context.l10n.appTitle,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
               Semantics(
                 sortKey: const OrdinalSortKey(0.1),
                 child: Text(
-                  'Version: ${packageVersion ?? 'unknown'}',
-                  style: Theme.of(context).textTheme.caption,
+                  context.l10n.appVersion(
+                    packageVersion ?? context.l10n.appVersionUnknown,
+                  ),
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ),
             ],
@@ -86,9 +89,17 @@ class _MyHomePageState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               header(context),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  context.l10n.pickMethodNotice(
+                    'lib/models/picker_method.dart',
+                  ),
+                ),
+              ),
               Expanded(
                 child: MethodListView(
-                  pickMethods: pickMethods,
+                  pickMethods: pickMethods(context),
                   onSelectMethod: selectAssets,
                 ),
               ),
@@ -104,7 +115,7 @@ class _MyHomePageState extends State<HomePage> {
                     onRemoveAsset: () => selectedAsset.value = null,
                   );
                 },
-              )
+              ),
             ],
           ),
         ),

@@ -9,7 +9,7 @@ import 'package:video_player/video_player.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
 class PreviewAssetWidget extends StatefulWidget {
-  const PreviewAssetWidget(this.asset, {Key? key}) : super(key: key);
+  const PreviewAssetWidget(this.asset, {super.key});
 
   final AssetEntity asset;
 
@@ -39,14 +39,15 @@ class _PreviewAssetWidgetState extends State<PreviewAssetWidget> {
   Future<void> _initializeController() async {
     final String? url = await widget.asset.getMediaUrl();
     if (url == null) {
-      _error = NullThrownError();
+      _error = StateError('The media URL of the preview asset is null.');
       return;
     }
     final VideoPlayerController controller;
+    final Uri uri = Uri.parse(url);
     if (Platform.isAndroid) {
-      controller = VideoPlayerController.contentUri(Uri.parse(url));
+      controller = VideoPlayerController.contentUri(uri);
     } else {
-      controller = VideoPlayerController.network(url);
+      controller = VideoPlayerController.networkUrl(uri);
     }
     _playerController = controller;
     try {

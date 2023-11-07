@@ -15,6 +15,7 @@ import '../constants/constants.dart';
 import '../constants/enums.dart';
 import '../constants/styles.dart';
 import '../constants/type_defs.dart';
+import '../internals/extensions.dart';
 import '../internals/methods.dart';
 import '../widgets/camera_picker.dart';
 import '../widgets/camera_picker_viewer.dart';
@@ -81,11 +82,9 @@ class CameraPickerViewerState extends State<CameraPickerViewer> {
     } catch (e, s) {
       hasErrorWhenInitializing = true;
       realDebugPrint('Error when initializing video controller: $e');
-      handleErrorWithHandler(e, onError, s: s);
+      handleErrorWithHandler(e, s, onError);
     } finally {
-      if (mounted) {
-        setState(() {});
-      }
+      safeSetState(() {});
     }
   }
 
@@ -117,7 +116,7 @@ class CameraPickerViewerState extends State<CameraPickerViewer> {
         }
       }
     } catch (e, s) {
-      handleErrorWithHandler(e, onError, s: s);
+      handleErrorWithHandler(e, s, onError);
     }
   }
 
@@ -140,13 +139,12 @@ class CameraPickerViewerState extends State<CameraPickerViewer> {
           File(widget.previewXFile.path),
         );
       } catch (e, s) {
-        handleErrorWithHandler(e, widget.pickerConfig.onError, s: s);
+        handleErrorWithHandler(e, s, onError);
+      } finally {
+        safeSetState(() {
+          isSavingEntity = false;
+        });
       }
-      isSavingEntity = false;
-      if (mounted) {
-        setState(() {});
-      }
-      return;
     }
     AssetEntity? entity;
     try {
@@ -177,13 +175,16 @@ class CameraPickerViewerState extends State<CameraPickerViewer> {
         StateError(
           'Permission is not fully granted to save the captured file.',
         ),
-        widget.pickerConfig.onError,
+        StackTrace.current,
+        onError,
       );
     } catch (e, s) {
       realDebugPrint('Saving entity failed: $e');
-      handleErrorWithHandler(e, widget.pickerConfig.onError, s: s);
+      handleErrorWithHandler(e, s, onError);
     } finally {
-      isSavingEntity = false;
+      safeSetState(() {
+        isSavingEntity = false;
+      });
       if (mounted) {
         Navigator.of(context).pop(entity);
       }
@@ -271,7 +272,7 @@ class CameraPickerViewerState extends State<CameraPickerViewer> {
       child: Text(
         Constants.textDelegate.confirm,
         style: TextStyle(
-          color: theme.textTheme.bodyText1?.color,
+          color: theme.textTheme.bodyLarge?.color,
           fontSize: 17,
           fontWeight: FontWeight.normal,
         ),
@@ -370,7 +371,7 @@ class CameraPickerViewerState extends State<CameraPickerViewer> {
         children: <Widget>[
           buildPreview(context),
           buildForeground(context),
-          buildLoading(context),
+          if (isSavingEntity) buildLoading(context),
         ],
       ),
     );
@@ -378,7 +379,8 @@ class CameraPickerViewerState extends State<CameraPickerViewer> {
 }
 
 class _WechatLoading extends StatefulWidget {
-  const _WechatLoading({Key? key, required this.tip}) : super(key: key);
+  // ignore: unused_element
+  const _WechatLoading({super.key, required this.tip});
 
   final String tip;
 
