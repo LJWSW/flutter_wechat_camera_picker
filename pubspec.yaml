@@ -14,5 +14,8 @@ dependencies:
   camera: ^0.10.0
   camera_platform_interface: ^2.1.5
   path: ^1.8.0
-  photo_manager: ^2.4.0
+  photo_manager:
+    git:
+      url: git@github.com:flutting/flutter_photo_manager.git
+      ref: lucian2.7.0
   video_player: ^2.3.2
