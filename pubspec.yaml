@@ -17,5 +17,5 @@ dependencies:
   photo_manager:
     git:
       url: git@github.com:flutting/flutter_photo_manager.git
-      ref: lucian2.7.0
+      ref: flutter3.7/2.8.1
   video_player: ^2.3.2
