@@ -4,7 +4,32 @@ that can be found in the LICENSE file. -->
 
 # Changelog
 
-See the [Migration Guide](guides/migration_guide.md) for the details of breaking changes between versions.
+See the [Migration Guide](guides/migration_guide.md) for breaking changes between versions.
+
+## 4.2.1
+
+### Fixes
+
+- Fix ignore locks when exception throws.
+
+## 4.2.0
+
+### Breaking changes
+
+- Migrate to Flutter 3.16, and drop supports for previous Flutter versions.
+- Bump `photo_manager` to v3.x.
+- Export `photo_manager_image_provider`.
+
+### Improvements
+
+- Roll `sensors_plus`.
+- Catch exceptions when obtain/subscribe to the accelerometer stream.
+- Use `wechat_picker_library`.
+
+### Fixes
+
+- Fix `onEntitySaving` not returned after called. (#223)
+- Predicate access denied to avoid deadlocks.
 
 ## 4.1.0
 
@@ -15,7 +40,7 @@ See the [Migration Guide](guides/migration_guide.md) for the details of breaking
 ### Fixes
 
 - Handle exceptions after all flows.
-- Fix various of problems with the capture button.
+- Fix various problems with the capture button.
 
 ## 4.0.3
 
