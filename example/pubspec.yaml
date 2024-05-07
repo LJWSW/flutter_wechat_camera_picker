@@ -22,18 +22,18 @@ dependencies:
 
   wechat_picker_library:
     git:
-      url: git@github.com:flutting/flutter_wechat_picker_library.git
+      url: git@github.com:LJWSW/flutter_wechat_picker_library.git
       ref: flutter3.19/1.0.0
 
   photo_manager_image_provider:
     git:
-      url: git@github.com:flutting/flutter_photo_manager_plugins.git
+      url: git@github.com:LJWSW/flutter_photo_manager_plugins.git
       ref: flutter3.19/2.0.0
       path: packages/photo_manager_image_provider
 
   photo_manager:
     git:
-      url: git@github.com:flutting/flutter_photo_manager.git
+      url: git@github.com:LJWSW/flutter_photo_manager.git
       ref: flutter3.19/3.0.0
 
 dev_dependencies:
